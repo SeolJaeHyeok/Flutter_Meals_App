@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_meals_app/screens/meal_detail_screen.dart';
+import 'package:flutter_meals_app/screens/settings_screen.dart';
+import 'package:flutter_meals_app/screens/tab_screen.dart';
 
 class MainDrawer extends StatelessWidget {
-  Widget buildListTile(String title, IconData icon) {
+  Widget buildListTile(String title, IconData icon, Function tabHandler) {
     return ListTile(
       leading: Icon(
         icon,
@@ -14,9 +17,7 @@ class MainDrawer extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 24),
       ),
-      onTap: () {
-        //go to differnt page
-      },
+      onTap: tabHandler,
     );
   }
 
@@ -43,8 +44,21 @@ class MainDrawer extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          buildListTile('Meals', Icons.restaurant),
-          buildListTile('Setting', Icons.settings),
+          buildListTile(
+            'Meals',
+            Icons.restaurant,
+            () {
+              //경로를 변수로 만드느냐 안만드느냐의 차이
+              Navigator.of(context).pushNamed('/'); // Same
+            },
+          ),
+          buildListTile(
+            'Setting',
+            Icons.settings,
+            () {
+              Navigator.of(context).pushNamed(SettingsScreen.routeName);// Same
+            },
+          ),
         ],
       ),
     );
