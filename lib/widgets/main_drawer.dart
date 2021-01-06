@@ -45,18 +45,18 @@ class MainDrawer extends StatelessWidget {
             height: 20,
           ),
           buildListTile(
-            'Meals',
+            'Categories',
             Icons.restaurant,
             () {
               //경로를 변수로 만드느냐 안만드느냐의 차이
-              Navigator.of(context).pushNamed('/'); // Same
+              Navigator.of(context).pushReplacementNamed('/'); // Same
             },
           ),
           buildListTile(
             'Setting',
             Icons.settings,
             () {
-              Navigator.of(context).pushNamed(SettingsScreen.routeName);// Same
+              Navigator.of(context).pushReplacementNamed(SettingsScreen.routeName);// Same
             },
           ),
         ],
