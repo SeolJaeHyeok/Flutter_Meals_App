@@ -9,6 +9,7 @@ class MealItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final Function removeItem;
 
   MealItem({
     @required this.id,
@@ -17,8 +18,8 @@ class MealItem extends StatelessWidget {
     @required this.duration,
     @required this.complexity,
     @required this.affordability,
+    @required this.removeItem,
   });
-
 
   String get complexityText {
     switch (complexity) {
@@ -40,13 +41,22 @@ class MealItem extends StatelessWidget {
   }
 
   String get affordabilityText {
-    if (affordability == Affordability.Affordable) return 'Affordable';
-    else if (affordability == Affordability.Pricey) return 'Pricey';
-    else return 'Luxurious';
+    if (affordability == Affordability.Affordable)
+      return 'Affordable';
+    else if (affordability == Affordability.Pricey)
+      return 'Pricey';
+    else
+      return 'Luxurious';
   }
 
   void selectMeal(BuildContext context) {
-    Navigator.of(context).pushNamed(MealDetailScreen.routeName, arguments: id);
+    Navigator.of(context)
+        .pushNamed(MealDetailScreen.routeName, arguments: id)
+        .then((result) {
+      if (result != null) {
+        removeItem(result);
+      }
+    });
   }
 
   @override
@@ -95,31 +105,31 @@ class MealItem extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(20.0),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.schedule),
-                        SizedBox(width: 6),
-                        Text('$duration min')
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.work),
-                        SizedBox(width: 6),
-                        Text(complexityText),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.attach_money),
-                        SizedBox(width: 6),
-                        Text(affordabilityText),
-                      ],
-                    ),
-                  ],
-                ),
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.schedule),
+                      SizedBox(width: 6),
+                      Text('$duration min')
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.work),
+                      SizedBox(width: 6),
+                      Text(complexityText),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.attach_money),
+                      SizedBox(width: 6),
+                      Text(affordabilityText),
+                    ],
+                  ),
+                ],
+              ),
             )
           ],
         ),
